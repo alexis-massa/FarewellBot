@@ -4,16 +4,6 @@ const fs = require('fs');
 
 const setup = require('./database').setup;
 setup();
-// // database
-// const db = new Database();
-
-// db.set('key', 'value');
-// db.get('key').then(value => { console.log(value); }).catch(e => { console.log(e); });
-gfdgfdsggf
-deepStrictEqualgfd
-sg
-fd
-sg
 
 
 // server
