@@ -8,7 +8,6 @@
         "ecmaVersion": 2019
     },
     "rules": {
-        
         "comma-dangle": [
             "error",
             "always-multiline"
@@ -34,7 +33,7 @@
         "max-statements-per-line": [
             "error",
             {
-                "max": 2
+                "max": 3
             }
         ],
         "no-console": "off",
@@ -79,14 +78,6 @@
             "always"
         ],
         "space-before-blocks": "error",
-        "space-before-function-paren": [
-            "error",
-            {
-                "anonymous": "never",
-                "named": "never",
-                "asyncArrow": "always"
-            }
-        ],
         "space-in-parens": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",

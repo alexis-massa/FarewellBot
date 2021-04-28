@@ -2,11 +2,27 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
+const setup = require('./database').setup;
+setup();
+// // database
+// const db = new Database();
+
+// db.set('key', 'value');
+// db.get('key').then(value => { console.log(value); }).catch(e => { console.log(e); });
+gfdgfdsggf
+deepStrictEqualgfd
+sg
+fd
+sg
+
+
 // server
 const keepAlive = require('./server');
 
-// client
+
+// discord client
 const client = new Discord.Client();
+// command list
 client.commands = new Discord.Collection();
 
 // config
@@ -36,9 +52,11 @@ client.on('message', message => {
     if (!client.commands.has(command)) return;
 
     try {
+        // execute command
         client.commands.get(command).execute(message, args);
     }
     catch (e) {
+        // error message
         console.log(`command : ${command} - error : ${e}`);
     }
 
