@@ -2,6 +2,9 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
+// server
+const keepAlive = require('./server');
+
 // client
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -52,6 +55,7 @@ for (const file of eventFiles) {
     }
 }
 
-
+// keep bot alive
+keepAlive();
 // Login
 client.login(process.env.TOKEN);
