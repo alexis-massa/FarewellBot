@@ -2,8 +2,9 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-const setup = require('./database').setup;
+const { setup, getAll } = require('./database');
 setup();
+getAll();
 
 
 // server
