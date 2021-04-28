@@ -5,7 +5,8 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['rn'],
     execute(message, args) {
-        
-        message.channel.send(`renamed ${args[0]} into ${args[1] + ' ' + args[2]}`);
-    },
+        message.channel.send(`renamed ${args[0]} into ${args[1] + ' ' + args[2]}`)
+            .then(message.react(':✅:'))
+            .then(message.react('❌'));
+    }
 };

@@ -4,14 +4,13 @@ const Database = require('@replit/database');
 // database
 const db = new Database();
 
-const setup = async function () {
-    await db.set('key', 'value');
-    await db.set('key3', 'value3');
-    await db.set('key2', 'value2');
+const setup = function () {
+    db.set('key', 'value');
+    db.get('key').then(value => { console.log(value); }).catch(e => { console.log(e); });
 };
 
-const getAll = async function () {
-    await db.list().then(keys => {
+const getAll = function () {
+    db.list().then(keys => {
         keys.forEach(key => {
             console.log(db.get(key));
         });
