@@ -19,6 +19,7 @@ const getAll = async function () {
             allKeys.push(key);
         });
     });
+    return allKeys;
 };
 
 // const rename = function (username, wishName) {
