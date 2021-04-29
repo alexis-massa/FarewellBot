@@ -1,9 +1,10 @@
 // imports
 const Discord = require('discord.js');
 const fs = require('fs');
-
 const { setup, getAll } = require('./database');
-setup();
+
+// setup db
+// setup();
 getAll();
 
 

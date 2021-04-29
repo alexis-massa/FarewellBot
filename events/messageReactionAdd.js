@@ -12,17 +12,20 @@ module.exports = {
 
         console.log(`${user} in #${reaction.message.channel.name} reacted with : ${reaction.emoji.name}`);
         reaction.message.guild.members.fetch(user.id).then(member => {
-            if (!user.id === reaction.message.author.id && member.hasPermission('ADMINISTRATOR')) {
+            if (!(user.id === reaction.message.author.id) && member.hasPermission('ADMINISTRATOR')) {
+                console.log('admin reacted');
                 if (reaction.emoji.name == '\u2705') {
                     validate();
                 }
                 if (reaction.emoji.name == '\u274c') {
                     refuse();
                 }
-            } else if (user.id === reaction.message.author.id && reaction.emoji.name == '\u274c') {
+            } else if (user.id === reaction.message.author.id && reaction.emoji.name == '🚫') {
+                console.log('author reacted');
                 cancel();
             } else {
-                console.log('not admin reacted');
+                // not admin and not author
+                console.log('non-authorized reacted');
             }
         });
     }
