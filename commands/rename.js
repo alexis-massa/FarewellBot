@@ -14,9 +14,9 @@ module.exports = {
       .setDescription('Rename demand.')
       // TODO : add info fields here
       .addFields([
-        { name: 'from', value: 'value', inline: true },
-        { name: 'to', value: 'value', inline: true },
-        { name: 'status', value: 'wait', inline: true }
+        { name: 'from', value: 'value', inline: false },
+        { name: 'to', value: 'value', inline: false },
+        { name: 'status', value: 'wait', inline: false }
       ])
       .setTimestamp();
 
