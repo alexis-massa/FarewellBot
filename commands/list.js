@@ -1,4 +1,4 @@
-const { getAll } = require('../database');
+const { getAllValues } = require('../database');
 module.exports = {
     name: 'list',
     description: 'list all keys from db',
@@ -6,11 +6,11 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['ls'],
     execute(message) {
-        const array = getAll();
-        let msg = '';
-        for (let i = 0; i < array.length; i++) {
-            msg += ' ' + array[i] + ' ';
-        }
-        message.channel.send(msg);
+        getAllValues().then(pairs =>{
+      let values=[];
+          for(key in pairs){
+            message.channel.send(key + " : " + pairs.key);
+          }
+        });
     }
 };

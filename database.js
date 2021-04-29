@@ -11,15 +11,9 @@ const setup = function () {
 };
 
 // get all values in db
-const getAll = async function () {
-    const allKeys = [];
-    await db.list().then(keys => {
-        keys.forEach(key => {
-            // console.log(db.get(key));
-            allKeys.push(key);
-        });
-    });
-    return allKeys;
+const getAllValues = async function () {
+    const values = db.getAll();
+    return values;
 };
 
 // const rename = function (username, wishName) {
@@ -29,4 +23,4 @@ const getAll = async function () {
 // }
 
 
-module.exports = { setup, getAll };
+module.exports = { setup, getAllValues };
