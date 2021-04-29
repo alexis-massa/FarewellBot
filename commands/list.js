@@ -6,14 +6,11 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['ls'],
     execute(message) {
-console.log('1');
-    const array = await getAll();
-    console.log(array);
-    for (let i = 0; i < array.length; i++) {
-      console.log(i);
-      console.log(array[i]);
-      message.channel.send(`${array[i]}`);
-    }
-console.log('2');
+        const array = getAll();
+        let msg = '';
+        for (let i = 0; i < array.length; i++) {
+            msg += ' ' + array[i] + ' ';
+        }
+        message.channel.send(msg);
     }
 };
