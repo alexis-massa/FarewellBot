@@ -11,10 +11,12 @@ const setup = function () {
 };
 
 // get all values in db
-const getAll = function () {
-    db.list().then(keys => {
+const getAll = async function () {
+    const allKeys = [];
+    await db.list().then(keys => {
         keys.forEach(key => {
-            console.log(db.get(key));
+            // console.log(db.get(key));
+            allKeys.push(key);
         });
     });
 };

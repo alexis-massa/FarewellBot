@@ -6,5 +6,5 @@ module.exports = {
     aliases: ['h'],
     execute(message) {
         message.channel.send('Hello');
-    },
+    }
 };

@@ -5,7 +5,7 @@ const { setup, getAll } = require('./database');
 
 // setup db
 // setup();
-getAll();
+// getAll();
 
 
 // server
@@ -29,6 +29,8 @@ for (const file of commandFiles) {
 
 // command handler
 client.on('message', message => {
+
+
     //* exit if message is a DM
     if (message.author.bot || message.channel.type === 'dm') return;
     //* exit if message not start with prefix
@@ -38,7 +40,14 @@ client.on('message', message => {
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     // command
     const command = args.shift().toLowerCase();
+
     console.log(command);
+    if (command === 'list') {
+        const array = getAll();
+        for (let i = 0; i < array.length; i++) {
+            message.channel.send(`${array[i]}`);
+        }
+    }
 
     //* exit if command doesn't exist
     if (!client.commands.has(command)) return;
