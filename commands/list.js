@@ -6,11 +6,10 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['ls'],
     execute(message) {
-        getAllValues().then(pairs =>{
-      let values=[];
-          for(key in pairs){
-            message.channel.send(key + " : " + pairs.key);
-          }
+        getAllValues().then(pairs => {
+            for (const key in pairs) {
+                message.channel.send(key + ' : ' + pairs.key);
+            }
         });
     }
 };

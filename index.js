@@ -14,18 +14,18 @@ client.commands = new Discord.Collection();
 // config
 require('dotenv').config();
 
-// commands
+// get command list
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+// for each command
 for (const file of commandFiles) {
+    // require commandFile
     const command = require(`./commands/${file}`);
+    // add to command list
     client.commands.set(command.name, command);
 }
 
 // command handler
 client.on('message', async (message) => {
-
-
-
     //* exit if message is a DM
     if (message.author.bot || message.channel.type === 'dm') return;
     //* exit if message not start with prefix
@@ -35,8 +35,6 @@ client.on('message', async (message) => {
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     // command
     const command = args.shift().toLowerCase();
-
-
 
     //* exit if command doesn't exist
     if (!client.commands.has(command)) return;

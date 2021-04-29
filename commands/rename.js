@@ -7,26 +7,28 @@ module.exports = {
   accessableby: 'Members',
   aliases: ['rn'],
   execute(message, args) {
-
     const embed = new Discord.MessageEmbed()
       .setTitle('Rename')
       .setColor('#5900ff')
       .setDescription('Rename demand.')
-      // TODO : add info fields here
       .addFields([
-        { name: 'asked by ', value: `<@${message.author.id}>`, inline: false },
-        { name: 'from', value: `${args[0]}`, inline: false },
-        { name: 'to', value: `${args[1]} ${args[2]}`, inline: false },
-        { name: 'status', value: '_*waiting for admin*_', inline: false }
+        { name: 'asked by ', value: `<@${message.author.id}>`, inline: true },
+        { name: 'from', value: `\`${args[0]}\``, inline: true },
+        { name: 'to', value: `\`${args[1]} ${args[2]}\``, inline: true }, // TODO : arg2 if exist
+        { name: 'status', value: '`waiting for admin`', inline: false }
       ])
       .setTimestamp();
 
-
     message.channel.send({ embed })
       .then(newMsg => {
+        // :white_mark_check:
         newMsg.react('\u2705');
+        // :x:
         newMsg.react('\u274c');
+        // :no_entry_sign:
         newMsg.react('🚫');
-      }).then(message.delete({ reason: 'deleted by bot' }));
+      });
+    // ? delete command message?
+    // .then(message.delete({ reason: 'deleted by bot' }));
   }
 };
