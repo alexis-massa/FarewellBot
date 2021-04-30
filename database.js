@@ -17,22 +17,14 @@ const getAllValues = async function () {
 };
 
 const add = async function (key, newValue) {
-  add('one', newValue);
-  add('txo', newValue);
-  add('three', newValue);
 
-  console.log(Array.from(getAllValues()));
+    db.list().then(keys => { console.log(Array.from(keys)); });
 
     db.get(key).then(value => {
-        console.log(value);
-        if(value) {
-          console.log('update');
-          db.set(key, newValue);
+        if (value) {
+            console.log('exists');
         } else {
-          console.log('new');
-          db.delete(key).then(()=>{
-            db.set(key, newValue);
-          })
+            console.log('not exist');
         }
     });
 
