@@ -16,11 +16,15 @@ const getAllValues = async function () {
     return values;
 };
 
-const add = async function (key, newValue) {
+const add = async function (newKey, newValue) {
 
-    db.list().then(keys => { console.log(Array.from(keys)); });
+    db.list().then(keys => {
+        keys.foreach(key => {
+            db.delete(key);
+        });
+    });
 
-    db.get(key).then(value => {
+    db.get(newKey).then(value => {
         if (value) {
             console.log('exists');
         } else {
