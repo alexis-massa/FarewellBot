@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
+const { add, getAllValues } = require('../database');
 
 module.exports = {
     name: 'messageReactionAdd',
     execute: async (reaction, user) => {
-
         // try to get reaction
         try {
             await reaction.fetch();
@@ -43,30 +43,53 @@ module.exports = {
     }
 };
 
-// TODO : remove other reactions
+/**
+ * accept rename (ADMIN only)
+ * @param {Discord.MessageReaction} reaction  : added reaction
+ */
 function validate(reaction) {
     console.log('ok');
-    // { name: 'status', value: 'Accepted', inline: false }
-    console.log(reaction.message.embeds[0].fields[3]);
     const newMsg = new Discord.MessageEmbed(reaction.message.embeds[0])
         .spliceFields(3, 1, { name: 'status', value: '`Accepted`', inline: false });
-    reaction.message.edit(newMsg);
+    reaction.message.edit(newMsg).then(message => {
+        message.reactions.removeAll(reaction.message);
+        // save to database
+        // db.set(reaction.message.embeds[0].fields[1].value, reaction.message.embeds[0].fields[2].value);
+        // db.list().then(keys => {
+        //     console.log(Array.from(keys));
+        // });
+
+        add('1', '2');
+        getAllValues();
+
+        // console.log(reaction.message.embeds[0].fields[1].value, reaction.message.embeds[0].fields[2].value);
+    }).catch(e => { console.log(`event messageReactionAdd - validate error : ${e}`); });
 }
-// TODO : remove other reactions
+
+// [{"username":"BeB6c2a","prestige":255,"accountId":9770},{"username":"Ahmed","prestige":140,"accountId":9853}]
+
+/**
+ * refuse rename (ADMIN only)
+ * @param {Discord.MessageReaction} reaction  : added reaction
+ */
 function refuse(reaction) {
     console.log('not ok');
-    // { name: 'status', value: 'Refused', inline: false }
-    console.log(reaction.message.embeds[0].fields[3]);
     const newMsg = new Discord.MessageEmbed(reaction.message.embeds[0])
         .spliceFields(3, 1, { name: 'status', value: '`Refused`', inline: false });
-    reaction.message.edit(newMsg);
+    reaction.message.edit(newMsg).then(message => {
+        message.reactions.removeAll(reaction.message);
+    }).catch(e => { console.log(`event messageReactionAdd - refuse error : ${e}`); });
 }
-// TODO : remove other reactions
+
+/**
+ * cancel rename (AUTHOR only)
+ * @param {Discord.MessageReaction} reaction : added reaction
+ */
 function cancel(reaction) {
     console.log('cancel');
-    // { name: 'status', value: 'Cancelled', inline: false }
-    console.log(reaction.message.embeds[0].fields[3]);
     const newMsg = new Discord.MessageEmbed(reaction.message.embeds[0])
         .spliceFields(3, 1, { name: 'status', value: '`Cancelled`', inline: false });
-    reaction.message.edit(newMsg);
+    reaction.message.edit(newMsg).then(message => {
+        message.reactions.removeAll(reaction.message);
+    }).catch(e => { console.log(`event messageReactionAdd - cancel error : ${e}`); });
 }

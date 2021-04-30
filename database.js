@@ -16,11 +16,14 @@ const getAllValues = async function () {
     return values;
 };
 
-// const rename = function (username, wishName) {
-//     db.get(username).then(value => {
-//         db.set()
-//     });
-// }
+const add = async function (key, value) {
+
+    db.get('testtestestestes').then(value => {
+        console.log(value);
+    });
+
+    // db.set(key, value);
+};
 
 
-module.exports = { setup, getAllValues };
+module.exports = { setup, getAllValues, add };
