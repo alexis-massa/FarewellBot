@@ -16,10 +16,24 @@ const getAllValues = async function () {
     return values;
 };
 
-const add = async function (key, value) {
+const add = async function (key, newValue) {
+  add('one', newValue);
+  add('txo', newValue);
+  add('three', newValue);
 
-    db.get('testtestestestes').then(value => {
+  console.log(Array.from(getAllValues()));
+
+    db.get(key).then(value => {
         console.log(value);
+        if(value) {
+          console.log('update');
+          db.set(key, newValue);
+        } else {
+          console.log('new');
+          db.delete(key).then(()=>{
+            db.set(key, newValue);
+          })
+        }
     });
 
     // db.set(key, value);
