@@ -7,9 +7,9 @@ module.exports = {
     aliases: ['ls'],
     execute(message) {
         getAllValues().then(pairs => {
-            for (const key in pairs) {
-                message.channel.send(key + ' : ' + pairs.key);
-            }
+            message.channel.send(pairs);
+            // for (const key in pairs) {
+            // }
         });
     }
 };

@@ -4,25 +4,28 @@ const Database = require('@replit/database');
 // database
 const db = new Database();
 
+// get all keys in db
+const getAllKeys = async function () {
+    const values = db.getAll();
+    return Array.from(values);
+};
+
 // get all values in db
 const getAllValues = async function () {
-    const values = db.getAll();
+    const values = [];
+    await getAllKeys().then(keys => {
+        for (const key in keys) {
+            db.get(key).then(value => {
+                values.push(value);
+            });
+        }
+    });
     return values;
 };
 
-const empty = function () {
-    db.list().then(keys=>{
-      for(let i; i > keys.length; i++){
-        db.delete(keys[i]);
-      }
-    });
-};
-
+// add a value in db
 const add = async function (newKey, newValue) {
-
-
     await db.get(newKey).then(value => {
-      console.log(value);
         if (value) {
             console.log('exists');
             db.set(newKey, newValue);
@@ -31,11 +34,10 @@ const add = async function (newKey, newValue) {
             db.set(newKey, newValue);
         }
     });
-        await db.list().then(keys => {
-            console.log(keys);
-        });
-    // db.set(key, value);
+    await db.list().then(keys => {
+        console.log(keys);
+    });
 };
 
 
-module.exports = { getAllValues, add };
+module.exports = { add, getAllValues };
