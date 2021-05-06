@@ -1,8 +1,8 @@
 // import
-const Database = require('@replit/database');
+const DbReplit = require('@replit/replit-db');
 
 // database
-const db = new Database();
+const db = new DbReplit();
 
 // get all keys in db
 const getAllKeys = async function () {

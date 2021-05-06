@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { add, getAllValues } = require('../database');
+const { add, getAllValues } = require('../replit-db');
 
 module.exports = {
   name: 'messageReactionAdd',

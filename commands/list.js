@@ -1,4 +1,4 @@
-const { getAllValues } = require('../database');
+const { getAllValues } = require('../replit-db');
 module.exports = {
     name: 'list',
     description: 'list all keys from db',
