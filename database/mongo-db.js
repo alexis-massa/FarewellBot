@@ -1,44 +1,39 @@
-// import
-const { MongoClient } = require('mongodb');
-
+// imports
+const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectID;
 // config
-// require('dotenv').config(); // ! doesn't work
+require('dotenv').config();
 
-// ! put URI in .env
-const client = new MongoClient('mongodb+srv://iLoxe:hcRyf6Y4KeP4XBFt@cluster0.6hhzu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useUnifiedTopology: true });
-const db = client.db('farewell-db');
-const collection = db.collection('names');
+// database options
+const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
-// self-invoking fucntion
-(async () => {
-    try {
-        await client.connect();
-        await create(collection, {
-            default_name: "defUsername",
-            updated_name: "updated name"
-        });
-    } catch (e) {
-        console.error(e);
-    } finally {
-        client.close();
-    }
-})();
-
-/**
- * Creates a new name pair in db
- * @param {import('mongodb').Collection} collection : collection
- * @param {JSON} newName : the document to insert
- */
-const create = async function (collection, newName) {
-    const result = await collection.insertOne(newName);
-    console.log(`New name created with the id: ${result.insertedId}`);
+const state = {
+    db: null
 };
 
-/**
- * TODO : write this
- * @param {import('mongodb').Collection} collection : collection
- * @param {String} name : name to find
- */
-const findOneByDefName = async function (collection, name) {
-    collection.findOne({ name: name });
-}
+const connect = (cb) => {
+    if (state.db) {
+        cb();
+    } else {
+        MongoClient.connect(process.env.ATLAS_URI, mongoOptions, (err, client) => {
+            if (err) {
+                cb(err);
+            } else {
+                state.db = client.db('farewell-db');
+                cb();
+            }
+        });
+    }
+};
+
+const getDB = () => {
+    connect();
+    return state.db;
+};
+
+const getCollection = () => {
+    return getDB().collection('names');
+};
+
+
+module.exports = { getCollection };

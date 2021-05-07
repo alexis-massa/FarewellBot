@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
-
 module.exports = {
   name: 'rename',
   description: 'Rename from name1 to name2',
   usage: '-rename',
   accessableby: 'Members',
   aliases: ['rn'],
+  // TODO : adapt to get 2 or 3 args and error in more
   execute(message, args) {
     const embed = new Discord.MessageEmbed()
       .setTitle('Rename')
@@ -14,7 +14,7 @@ module.exports = {
       .addFields([
         { name: 'asked by ', value: `<@${message.author.id}>`, inline: true },
         { name: 'from', value: `\`${args[0]}\``, inline: true },
-        { name: 'to', value: `\`${args[1]} ${args[2]}\``, inline: true }, // TODO : arg2 if exist
+        { name: 'to', value: `\`${args[1]} ${args[2]}\``, inline: true },
         { name: 'status', value: '`waiting for admin`', inline: false }
       ])
       .setTimestamp();
