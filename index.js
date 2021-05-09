@@ -10,6 +10,10 @@ const keepAlive = require('./server');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 // command list
 client.commands = new Discord.Collection();
+// mongoose object
+client.mongoose = require('./database/utils/mongoose');
+// functions
+require('./database/utils/functions')(client);
 
 // config
 require('dotenv').config();
@@ -60,8 +64,9 @@ for (const file of eventFiles) {
         client.on(event.name, (...args) => event.execute(...args, client));
     }
 }
-
 // keep bot alive
 keepAlive();
+// mongoose connection
+client.mongoose.init();
 // Login
 client.login(process.env.TOKEN);

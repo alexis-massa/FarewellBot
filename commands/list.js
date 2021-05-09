@@ -1,4 +1,4 @@
-const { getAllValues } = require('../replit-db');
+// const { getAllValues } = require('../replit-db');
 module.exports = {
     name: 'list',
     description: 'list all keys from db',
@@ -6,10 +6,10 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['ls'],
     execute(message) {
-        getAllValues().then(pairs => {
-            message.channel.send(pairs);
-            // for (const key in pairs) {
-            // }
-        });
+        // getAllValues().then(pairs => {
+        //     message.channel.send(pairs);
+        //     // for (const key in pairs) {
+        //     // }
+        // });
     }
 };
