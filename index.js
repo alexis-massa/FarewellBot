@@ -45,7 +45,7 @@ client.on('message', async (message) => {
 
     try {
         // execute command
-        client.commands.get(command).execute(message, args);
+        client.commands.get(command).execute(message, client, args);
     }
     catch (e) {
         // error message
