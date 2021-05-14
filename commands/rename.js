@@ -5,8 +5,11 @@ module.exports = {
   usage: '-rename',
   accessableby: 'Members',
   aliases: ['rn'],
-  // TODO : adapt to get 2 or 3 args and error in more
   execute(message, args) {
+    let override_name = '';
+    for (let i = 1; i < args.length; i++) {
+      override_name += args[i] + ' ';
+    }
     const embed = new Discord.MessageEmbed()
       .setTitle('Rename')
       .setColor('#5900ff')
@@ -14,7 +17,7 @@ module.exports = {
       .addFields([
         { name: 'asked by ', value: `<@${message.author.id}>`, inline: true },
         { name: 'from', value: `\`${args[0]}\``, inline: true },
-        { name: 'to', value: `\`${args[1]} ${args[2]}\``, inline: true },
+        { name: 'to', value: `\`${override_name}\``, inline: true },
         { name: 'status', value: '`waiting for admin`', inline: false }
       ])
       .setTimestamp();
@@ -27,8 +30,7 @@ module.exports = {
         newMsg.react('\u274c');
         // :no_entry_sign:
         newMsg.react('🚫');
-      });
-    // ? delete command message?
-    // .then(message.delete({ reason: 'deleted by bot' }));
+      })
+      .then(message.delete({ reason: 'deleted by bot' }));
   }
 };

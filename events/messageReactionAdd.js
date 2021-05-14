@@ -15,9 +15,8 @@ module.exports = {
         console.log(`${user} in #${reaction.message.channel.name} reacted with : ${reaction.emoji.name}`);
 
 
-        // get reaction member
+        // Handle added reaction
         reaction.message.guild.members.fetch(user.id).then(member => {
-            //
             if (!(user.id === reaction.message.author.id) && member.hasPermission('ADMINISTRATOR')) {
                 if (reaction.emoji.name == '\u2705') {
                     validate(user, reaction, client);
@@ -31,9 +30,6 @@ module.exports = {
                     cancel(reaction);
                     return;
                 }
-            } else {
-                // not admin and not author
-                // console.log('non-authorized reacted');
             }
         });
     }
@@ -50,12 +46,14 @@ async function validate(user, reaction, client) {
         .spliceFields(3, 1, { name: 'status', value: '`Accepted`', inline: false });
     reaction.message.edit(newMsg).then(message => {
         // remove other reactions
-        // message.reactions.removeAll(reaction.message);
-        // add(reaction.message.embeds[0].fields[1].value, reaction.message.embeds[0].fields[2].value);
-
+        message.reactions.removeAll(reaction.message);
     }).catch(e => { console.log(`event messageReactionAdd - validate error : ${e}`); });
     // add to database
-    await client.addRename(user.id, 'username', 'user name');
+    const discord_id = reaction.message.embeds[0].fields[0].value.replace(/[<@>]+/g, '');
+    const localizor_name = reaction.message.embeds[0].fields[1].value.replace(/`/g, '');
+    const override_name = reaction.message.embeds[0].fields[2].value.replace(/`/g, '');
+    const add = await client.addRename(discord_id, localizor_name, override_name);
+    // ? logfile
 }
 
 // [{"username":"BeB6c2a","prestige":255,"accountId":9770},{"username":"Ahmed","prestige":140,"accountId":9853}]
@@ -71,6 +69,7 @@ function refuse(reaction) {
         // remove other reactions
         message.reactions.removeAll(reaction.message);
     }).catch(e => { console.log(`event messageReactionAdd - refuse error : ${e}`); });
+    // ? logfile
 }
 
 /**
@@ -84,4 +83,5 @@ function cancel(reaction) {
         // remove other reactions
         message.reactions.removeAll(reaction.message);
     }).catch(e => { console.log(`event messageReactionAdd - cancel error : ${e}`); });
+    // ? logfile
 }

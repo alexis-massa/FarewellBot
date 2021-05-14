@@ -32,10 +32,10 @@ for (const file of commandFiles) {
 client.on('message', async (message) => {
     //* exit if message is a DM
     if (message.author.bot || message.channel.type === 'dm') return;
-    //* exit if message not start with prefix
+    //* exit if message doesn't start with prefix
     if (!message.content.startsWith(process.env.PREFIX)) return;
 
-    // split message
+    // split message in arguments
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     // command
     const command = args.shift().toLowerCase();
@@ -45,7 +45,7 @@ client.on('message', async (message) => {
 
     try {
         // execute command
-        client.commands.get(command).execute(message, client, args);
+        client.commands.get(command).execute(message, args);
     }
     catch (e) {
         // error message

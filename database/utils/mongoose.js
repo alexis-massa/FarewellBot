@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('./mongoose-config');
+require('dotenv').config({ path: '../.env' });
 
 module.exports = {
     init: () => {
@@ -12,7 +12,7 @@ module.exports = {
             family: 4
         };
 
-        mongoose.connect(config.database.ATLAS_URI, dbOptions);
+        mongoose.connect(process.env.ATLAS_URI, dbOptions);
         mongoose.set('useFindAndModify', false);
         mongoose.Promise = global.Promise;
 
