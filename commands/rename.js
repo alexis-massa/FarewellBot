@@ -8,7 +8,9 @@ module.exports = {
   execute(message, args) {
     let override_name = '';
     for (let i = 1; i < args.length; i++) {
-      override_name += args[i] + ' ';
+      if (i < args.length) {
+        override_name += args[i] + ' ';
+      }
     }
     const embed = new Discord.MessageEmbed()
       .setTitle('Rename')
