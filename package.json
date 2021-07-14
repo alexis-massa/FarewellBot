@@ -18,7 +18,7 @@
   "homepage": "https://github.com/alexis-massa/FarewellBot#readme",
   "dependencies": {
     "@replit/database": "^2.0.1",
-    "cryptr": "^6.0.2",
+    "crypto-js": "^4.0.0",
     "discord.js": "^12.5.3",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",

@@ -1,6 +1,6 @@
 // import
 const NAME = require('../models/names');
-const CRYPTR = require('cryptr');
+const CryptoJS = require('crypto-js');
 require('dotenv').config({ path: '../.env' });
 
 module.exports = (client) => {
@@ -57,8 +57,24 @@ module.exports = (client) => {
    * @returns string
    */
   client.decrypt = (code) => {
-    // Decrypt mechanism with encryption key
-    const cryptr = new CRYPTR(process.env.ENCRYPTION_KEY);
-    return cryptr.decrypt(code);
+    // encryption KEY and IV
+    const key = CryptoJS.enc.Utf8.parse(process.env.ENCRYPTION_KEY);
+    const iv = CryptoJS.enc.Utf8.parse(process.env.ENCRYPTION_IV);
+
+    // Base64 decryption
+    const baseResult = CryptoJS.enc.Base64.parse(code);
+    // Base64 decryption
+    const ciphertext = CryptoJS.enc.Base64.stringify(baseResult);
+    // AES decryption
+    const decryptResult = CryptoJS.AES.decrypt(ciphertext, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC
+    });
+    // Decrypted to Utf8
+    const resData = decryptResult.toString(CryptoJS.enc.Utf8).toString();
+    // Decrypted Utf8 to JSON
+    console.log(JSON.parse(resData));
+
+    // return JSON.parse(resData)
   };
 };
