@@ -1,84 +1,88 @@
 // imports
 require('dotenv').config({ path: '../.env' });
 
+// Hard coded roles
+const events = [
+  // {
+  //   event_name: 'WISPS_COLLECTED_ALPHA',
+  //   role: {
+  //     role_name: 'Wisp Collector: Alpha',
+  //     role_id: '864466853112053780'
+  //   }
+  // },
+  {
+    event_name: 'WISPS_COLLECTED_ALPHA',
+    role: { role_name: 'OUI', role_id: '806165583817211955' }
+  }
+];
+
 module.exports = {
   name: 'redeem',
   description: 'redeem encrypted code',
   usage: '?redeem <code>',
   accessableby: 'Members',
   aliases: [],
-  execute(message, args, client) {
+  execute: async (message, args, client) => {
     /**
      * event {"event":"GAME_EVENT","time":1234567}
      * event - role {"event":"GAME_EVENT", role: {role_name: "Wisp Collector: Alpha", role_id: "864466853112053780"}}
      * role - role_id
      */
 
-    // Hard coded roles
-    const events = [
-      // {
-      //   event_name: 'TEST_WISP_THING',
-      //   role: {
-      //     role_name: 'Wisp Collector: Alpha',
-      //     role_id: '864466853112053780'
-      //   }
-      // },
-      {
-        event_name: 'WISP_COLLECTOR_ALPHA',
-        role: {
-          role_name: 'OUI',
-          role_id: '806165583817211955'
-        }
-      }
-    ];
-
     // GuildMember (message sender in server)
     const member = message.member;
     // Too much arguments
-    if (args.length > 1) return;
+    if (args.length > 1) return; // TODO : add warning message
     // Redeemed code
     const code = args[0];
-    test(code, member, events, client);
-    // // Decrypt code
-    // const decrypted = client.decrypt(code);
-    // // Convert decrypted code to JSON object
-    // const decrypted_json = JSON.parse(decrypted);
-    // console.log(decrypted_json);
-    // // check_role(member, decrypted_json);
+    // Check if code is already redeemed
+    const redeemed = await client.isRedeemed(code.toString());
+    if (redeemed) {
+      console.log('redeemed');
+      // Code already redeemed
+      message.channel.send(
+        ":/ Looks like your code has already been redeemed, if you don't have any new role, please contact <@200538376321892352> or <@374626097226317824>"
+      );
+    } else {
+      // Decrypt code
+      const json_data = client.decrypt(code);
+      const role = find_role(json_data.event);
+      if (role !== false) {
+        // member.roles.add(role);
+        assign_role(member, role);
+        // save code
+      } else {
+        // role not found
+      }
+    }
   }
 };
 
-function test(code, member, events, client) {
-
-  // console.log(member.id);
-  // console.log(events);
-  // console.log(code);
-
-  client.decrypt(code);
-
+/**
+ * Checks if role exists
+ * @param {JSON} event : event name
+ * @returns role JSON data or false if doesn't exist
+ */
+function find_role(event) {
+  let val = false;
+  events.forEach((e) => {
+    if (e.event_name === event) val = e.role;
+  });
+  return val;
 }
 
-// function check_role(member, role, events) {
-  // // verify user roles
-  // if (member.roles.cache.some(role.name === 'OUI')) {
-  //   console.log('oui');
-  // } else {
-  //   console.log('non');
-  // }
-  // // Assign according role
-  // switch (role) {
-  //   case 'role1':
-  //     assign_role(member, 'role 1');
-  //     break;
-  //   case 'role2':
-  //     assign_role(member, 'role 2');
-  //     break;
-  //   default:
-  //     assign_role(member, 'role default');
-  //     break;
-  // }
-// }
-
-// function assign_role(member, role) {
-//   console.log(member.id + ' was assigned: ' + role);
-// }
+/**
+ * Checks if member doesn't already have role and assign it
+ * @param {*} member
+ * @param {*} role_name
+ */
+function assign_role(member, role) {
+  console.log();
+  // check if user has role
+  if (!member.roles.cache.some((r) => r.name === role.role_name)) {
+    console.log(
+      member.id + ' assigned: ' + role.role_name + ' - ' + role.role_id
+    );
+    member.roles.add(role.role_id);
+  }
+}

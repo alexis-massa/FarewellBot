@@ -1,10 +1,11 @@
 // import
-const NAME = require('../models/names');
-const CryptoJS = require('crypto-js');
+const NAME = require('../database/models/names');
+const CODES = require('../database/models/codes');
 require('dotenv').config({ path: '../.env' });
 
 module.exports = (client) => {
   /**
+   * * UNUSED
    * find rename by localizor_name and log it
    * @param {String} localizor_name : localizor username
    */
@@ -41,6 +42,7 @@ module.exports = (client) => {
   };
 
   /**
+   * * UNUSED
    * log all db values
    */
   client.list = async () => {
@@ -52,29 +54,12 @@ module.exports = (client) => {
   };
 
   /**
-   * Decrypt string
-   * @param {String} code : code to decrypt
-   * @returns string
+   * Checks if code is already redeemed
+   * @param {*} code : redeemed code
+   * @returns boolean
    */
-  client.decrypt = (code) => {
-    // encryption KEY and IV
-    const key = CryptoJS.enc.Utf8.parse(process.env.ENCRYPTION_KEY);
-    const iv = CryptoJS.enc.Utf8.parse(process.env.ENCRYPTION_IV);
-
-    // Base64 decryption
-    const baseResult = CryptoJS.enc.Base64.parse(code);
-    // Base64 decryption
-    const ciphertext = CryptoJS.enc.Base64.stringify(baseResult);
-    // AES decryption
-    const decryptResult = CryptoJS.AES.decrypt(ciphertext, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC
-    });
-    // Decrypted to Utf8
-    const resData = decryptResult.toString(CryptoJS.enc.Utf8).toString();
-    // Decrypted Utf8 to JSON
-    console.log(JSON.parse(resData));
-
-    // return JSON.parse(resData)
+  client.isRedeemed = async (code) => {
+    const res = await CODES.find({ codes: code }).catch((err) => console.error(err));
+    return (res.length > 0);
   };
 };
