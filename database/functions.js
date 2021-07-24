@@ -59,7 +59,19 @@ module.exports = (client) => {
    * @returns boolean
    */
   client.isRedeemed = async (code) => {
-    const res = await CODES.find({ codes: code }).catch((err) => console.error(err));
+    const res = await CODES.find({ code: code }).catch((err) => console.error(err));
     return (res.length > 0);
+  };
+
+  /**
+   * Redeem code
+   * @param {*} code : code to redeem
+   * @returns boolean
+   */
+  client.redeem = async (code) => {
+    const res = await new CODES({ code: code }).save((err) => {
+      if(err) return false;
+    });
+    return res;
   };
 };

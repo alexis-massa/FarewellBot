@@ -3,16 +3,12 @@ require('dotenv').config({ path: '../.env' });
 
 // Hard coded roles
 const events = [
-  // {
-  //   event_name: 'WISPS_COLLECTED_ALPHA',
-  //   role: {
-  //     role_name: 'Wisp Collector: Alpha',
-  //     role_id: '864466853112053780'
-  //   }
-  // },
   {
     event_name: 'WISPS_COLLECTED_ALPHA',
-    role: { role_name: 'OUI', role_id: '806165583817211955' }
+    role: {
+      role_name: 'Wisp Collector: Alpha',
+      role_id: '864466853112053780'
+    }
   }
 ];
 
@@ -32,16 +28,20 @@ module.exports = {
     // GuildMember (message sender in server)
     const member = message.member;
     // Too much arguments
-    if (args.length > 1) return; // TODO : add warning message
+    if (args.length > 1) {
+      message.channel.send(
+        'There\'s an issue with the code you entered, make sure there are no spaces in the code and if it still doesn\'t work, contact <@200538376321892352> or <@374626097226317824>'
+      );
+      return;
+    }
     // Redeemed code
     const code = args[0];
     // Check if code is already redeemed
     const redeemed = await client.isRedeemed(code.toString());
     if (redeemed) {
-      console.log('redeemed');
       // Code already redeemed
       message.channel.send(
-        ":/ Looks like your code has already been redeemed, if you don't have any new role, please contact <@200538376321892352> or <@374626097226317824>"
+        'Looks like your code has already been redeemed. if you didn\'t try an old code, please contact <@200538376321892352> or <@374626097226317824>'
       );
     } else {
       // Decrypt code
@@ -49,8 +49,13 @@ module.exports = {
       const role = find_role(json_data.event);
       if (role !== false) {
         // member.roles.add(role);
-        assign_role(member, role);
-        // save code
+        if (client.redeem(code)) {
+          if (assign_role(member, role)) {
+            message.channel.send(
+              `:tada: <@${member.id}> just earned the \`${role.role_name}\` role! Congrats!`
+            );
+          }
+        }
       } else {
         // role not found
       }
@@ -75,14 +80,13 @@ function find_role(event) {
  * Checks if member doesn't already have role and assign it
  * @param {*} member
  * @param {*} role_name
+ * @return boolean
  */
 function assign_role(member, role) {
-  console.log();
   // check if user has role
   if (!member.roles.cache.some((r) => r.name === role.role_name)) {
-    console.log(
-      member.id + ' assigned: ' + role.role_name + ' - ' + role.role_id
-    );
     member.roles.add(role.role_id);
+    return true;
   }
+  return false;
 }
