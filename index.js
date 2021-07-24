@@ -11,9 +11,10 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 // command list
 client.commands = new Discord.Collection();
 // mongoose object
-client.mongoose = require('./database/utils/mongoose');
+client.mongoose = require('./database/mongoose');
 // functions
-require('./database/utils/functions')(client);
+require('./database/functions')(client);
+require('./utils/functions')(client);
 
 // config
 require('dotenv').config();
@@ -45,7 +46,7 @@ client.on('message', async (message) => {
 
     try {
         // execute command
-        client.commands.get(command).execute(message, args);
+        client.commands.get(command).execute(message, args, client);
     }
     catch (e) {
         // error message
