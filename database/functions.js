@@ -32,10 +32,10 @@ module.exports = (client) => {
     ).catch((err) => console.error(err));
     if (res) {
       if (res.lastErrorObject.updatedExisting) {
-        console.log(`Successfully inserted with id: ${res.value._id}`);
+        // console.log(`Successfully inserted with id: ${res.value._id}`);
         return { result: 'inserted', id: res.value._id };
       } else {
-        console.log(`Successfully updated with id: ${res.value._id}`);
+        // console.log(`Successfully updated with id: ${res.value._id}`);
         return { result: 'updated', id: res.value._id };
       }
     }

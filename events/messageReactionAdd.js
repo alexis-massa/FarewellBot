@@ -12,7 +12,7 @@ module.exports = {
         }
 
         // log event
-        console.log(`${user} in #${reaction.message.channel.name} reacted with : ${reaction.emoji.name}`);
+        // console.log(`${user} in #${reaction.message.channel.name} reacted with : ${reaction.emoji.name}`);
 
 
         // Handle added reaction
