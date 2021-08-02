@@ -45,13 +45,7 @@ module.exports = {
       );
     } else {
       // Decrypt code
-      try {
       const json_data = client.decrypt(code);
-      } catch (e){
-        message.channel.send(
-        'There\'s an issue with the code you entered, make sure there are no spaces in the code and if it still doesn\'t work, contact <@200538376321892352> or <@374626097226317824>'
-      );
-      }
       const role = find_role(json_data.event);
       if (role !== false) {
         // member.roles.add(role);
@@ -64,6 +58,9 @@ module.exports = {
         }
       } else {
         // role not found
+        message.channel.send(
+        'There\'s an issue with the code you entered, make sure there are no spaces in the code and if it still doesn\'t work, contact <@200538376321892352> or <@374626097226317824>'
+      );
       }
     }
   }
