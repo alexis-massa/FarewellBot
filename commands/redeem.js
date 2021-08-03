@@ -51,7 +51,7 @@ module.exports = {
         // member.roles.add(role);
         if (client.redeem(code)) {
           if (assign_role(member, role)) {
-            message.channel.send(
+            client.channels.cache.get('864465180473819136').send(
               `:tada: <@${member.id}> just earned the \`${role.role_name}\` role! Congrats!`
             );
           }
