@@ -1,6 +1,6 @@
 module.exports = {
   name: 'bark',
-  description: 'Barks',
+  description: 'Chesley barks back',
   usage: '?bark',
   accessableby: 'Members',
   aliases: ['b'],

@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
   name: 'rename',
-  description: 'Rename from name1 to name2',
-  usage: '-rename',
+  description: 'Chesley will change your localizor name from localizor_name to \'New Name\'. For more informations, read #faq',
+  usage: '?rename localizor_name New Name',
   accessableby: 'Members',
   aliases: ['rn'],
   execute(message, args) {

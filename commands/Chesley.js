@@ -1,9 +1,9 @@
 module.exports = {
   name: 'chesley',
-  description: 'Barks',
-  usage: '?Chesley',
+  description: 'Chesley answers to his name, \'help\' will provide help about all the commands',
+  usage: '?Chesley <help>',
   accessableby: 'Members',
-  aliases: ['c'],
+  aliases: ['C'],
   execute(message) {
     message.channel.send('Bark');
   }

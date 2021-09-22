@@ -14,10 +14,9 @@ const events = [
 
 module.exports = {
   name: 'redeem',
-  description: 'redeem encrypted code',
-  usage: '?redeem <code>',
+  description: 'Chesley will redeem your secret code and give you the reward you deserve',
   accessableby: 'Members',
-  aliases: [],
+  aliases: ['r'],
   execute: async (message, args, client) => {
     /**
      * event {"event":"GAME_EVENT","time":1234567}

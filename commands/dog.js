@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 module.exports = {
   name: 'dog',
-  description: 'Posts p of dog',
-  usage: '?dog [image, gif]',
+  description: 'Chesley will send an image or a gif of a cute doggo. By adding \'img\' or \'gif\' , you can choose what Chesley will send',
+  usage: '?dog <image|gif>',
   accessableby: 'Members',
   aliases: ['d'],
   execute(message, args) {
