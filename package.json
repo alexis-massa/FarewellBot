@@ -19,7 +19,7 @@
   "dependencies": {
     "@replit/database": "^2.0.1",
     "crypto-js": "^4.0.0",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.O",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.12"
