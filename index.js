@@ -7,7 +7,7 @@ const keepAlive = require('./server');
 
 // discord client
 const client = new Discord.Client({
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION']
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER']
 });
 // command list
 client.commands = new Discord.Collection();
