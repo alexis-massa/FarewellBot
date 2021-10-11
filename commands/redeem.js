@@ -9,6 +9,13 @@ const events = [
       role_name: 'Wisp Collector: Alpha',
       role_id: '864466853112053780'
     }
+  },
+  {
+    event_name: 'WISPS_COLLECTED_BETA',
+    role: {
+      role_name: 'Wisp Collector: Beta',
+      role_id: '897020591691939860'
+    }
   }
 ];
 
