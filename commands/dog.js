@@ -11,14 +11,14 @@ module.exports = {
     if (args[0]) {
       switch (args[0]) {
         case 'gif':
-          url = 'https://api.thedogapi.com/v1/images/search?size=med&mime_types=gif&format=json';
+          url = 'https://api.thedogapi.com/v1/images/search?size=small&mime_types=gif&format=json';
           break;
         case 'image':
-          url = 'https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg,png&format=json';
+          url = 'https://api.thedogapi.com/v1/images/search?size=small&mime_types=jpg,png&format=json';
           break;
       }
     } else {
-      url = 'https://api.thedogapi.com/v1/images/search?size=med&format=json';
+      url = 'https://api.thedogapi.com/v1/images/search?size=small&format=json';
     }
 
     fetch(url)
