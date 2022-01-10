@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
-const header = { 
- }
+
 module.exports = {
   name: 'cat',
   description: 'Chesley will send an image or a gif of a cute kitten. By adding \'img\' or \'gif\' , you can choose what Chesley will send',
@@ -8,20 +7,17 @@ module.exports = {
   accessableby: 'Members',
   aliases: ['c'],
   execute(message, args) {
-    let url = '';
-
+    let url = 'https://api.thecatapi.com/v1/images/search?format=json&size=small';
 
     if (args[0]) {
       switch (args[0]) {
         case 'gif':
-          url = 'https://api.thecatapi.com/v1/images/search?mime_types=gif&format=json&size=small';
+          url += '&mime_types=gif';
           break;
         case 'image':
-          url = 'https://api.thecatapi.com/v1/images/search?mime_types=jpg,png&format=json&size=small';
+          url += '&mime_types=jpg,png';
           break;
       }
-    } else {
-      url = 'https://api.thedogapi.com/v1/images/search?size=med&format=json';
     }
 
     fetch(url)
