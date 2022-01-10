@@ -10,7 +10,7 @@ module.exports = {
       status: 'online',
       activity: {
         type: 'LISTENING',
-        name: 'to ?chesley help'
+        name: '?chesley help'
       }
     });
     console.log(`${client.user.tag} is online !`);
