@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 module.exports = {
   name: 'dog',
   description: 'Chesley will send an image or a gif of a cute doggo. By adding \'img\' or \'gif\' , you can choose what Chesley will send',
-  usage: '?dog <image|gif>',
+  usage: '?dog <img|gif>',
   accessableby: 'Members',
   aliases: ['d'],
   execute(message, args) {
@@ -13,7 +13,7 @@ module.exports = {
         case 'gif':
           url = 'https://api.thedogapi.com/v1/images/search?size=small&mime_types=gif&format=json';
           break;
-        case 'image':
+        case 'img':
           url = 'https://api.thedogapi.com/v1/images/search?size=small&mime_types=jpg,png&format=json';
           break;
       }

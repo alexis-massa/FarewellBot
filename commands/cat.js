@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 module.exports = {
   name: 'cat',
   description: 'Chesley will send an image or a gif of a cute kitten. By adding \'img\' or \'gif\' , you can choose what Chesley will send',
-  usage: '?cat <image|gif>',
+  usage: '?cat <img|gif>',
   accessableby: 'Members',
   aliases: ['c'],
   execute(message, args) {
@@ -14,7 +14,7 @@ module.exports = {
         case 'gif':
           url += '&mime_types=gif';
           break;
-        case 'image':
+        case 'img':
           url += '&mime_types=jpg,png';
           break;
       }
