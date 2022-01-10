@@ -14,14 +14,14 @@ module.exports = {
     if (args[0]) {
       switch (args[0]) {
         case 'gif':
-          url = 'https://api.thecatapi.com/images/search?size=med&mime_types=gif&format=json&api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c';
+          url = 'https://api.thecatapi.com/images/search?api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c&size=med&mime_types=gif&format=json&';
           break;
         case 'image':
-          url = 'https://api.thecatapi.com/images/search?size=med&mime_types=jpg,png&format=json&api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c';
+          url = 'https://api.thecatapi.com/images/search?api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c&size=med&mime_types=jpg,png&format=json&';
           break;
       }
     } else {
-      url = 'https://api.thedogapi.com/v1/images/search?size=med&format=json';
+      url = 'https://api.thedogapi.com/v1/images/search?api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c&size=med&format=json';
     }
 
     fetch(url)

@@ -16,10 +16,8 @@ module.exports = {
         case 'image':
           url = 'https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg,png&format=json';
           break;
-
       }
     } else {
-
       url = 'https://api.thedogapi.com/v1/images/search?size=med&format=json';
     }
 
