@@ -21,7 +21,7 @@ module.exports = {
           break;
       }
     } else {
-      url = 'https://api.thedogapi.com/v1/images/search?api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c&size=med&format=json';
+      url = 'https://api.thecatapi.com/v1/images/search?api_key=763bbd47-fd16-4b6d-800b-6fa3e6ae172c&size=med&format=json';
     }
 
     fetch(url)
