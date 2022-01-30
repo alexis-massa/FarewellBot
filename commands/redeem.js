@@ -16,6 +16,13 @@ const events = [
       role_name: 'Wisp Collector: Beta',
       role_id: '897020591691939860'
     }
+  },
+  {
+    event_name: 'WISPS_COLLECTED',
+    role: {
+      role_name: 'Wisp Collector',
+      role_id: '937288123405185084'
+    }
   }
 ];
 
@@ -48,7 +55,7 @@ module.exports = {
     if (redeemed) {
       // Code already redeemed
       message.channel.send(
-        'Looks like your code has already been redeemed. if you didn\'t try an old code, please contact <@200538376321892352> or <@374626097226317824>'
+        'Looks like your code has already been redeemed. If you didn\'t try an old code, please contact <@200538376321892352> or <@374626097226317824>'
       );
     } else {
       // Decrypt code
