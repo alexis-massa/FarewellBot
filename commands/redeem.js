@@ -68,6 +68,11 @@ module.exports = {
             client.channels.cache.get('864465180473819136').send(
               `:tada: <@${member.id}> just earned the \`${role.role_name}\` role! Congrats!`
             );
+            try {
+              message.delete({ reason: 'Delete by bot : redeemed code' });
+            } catch {
+              console.log('Error when deleting message');
+            }
           }
         }
       } else {
